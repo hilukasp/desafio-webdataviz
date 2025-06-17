@@ -6,12 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Humitrack | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="https://png.pngtree.com/png-clipart/20230504/original/pngtree-vector-in-tree-element-graphic-design-png-image_9140130.png" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
@@ -19,20 +20,17 @@
   <!--header inicio-->
   <div class="header">
     <div class="container">
-      <h1 class="titulo">AquaTech</h1>
+      <h1 class="titulo">Humitrack</h1>
       <ul class="navbar">
         <li>
           <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
         </li>
         <li>|</li>
         <li>
           <a href="login.html">Login</a>
         </li>
         <li class="agora">
-          <a href="#">Cadastro</a>
+          Cadastro
         </li>
       </ul>
     </div>
@@ -40,19 +38,11 @@
   <!--header fim-->
 
   <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
+    <div class="bg"></div>
     <div class="container">
       <div class="card card-cadastro">
         <h2>Bem-vindo!</h2>
         <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
           <div class="campo">
             <span>Código de ativação:</span>
             <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
@@ -75,11 +65,6 @@
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
-        </div>
-
-        <div id="div_erros_login"></div>
       </div>
     </div>
   </div>
@@ -121,11 +106,13 @@
       confirmacaoSenhaVar == "" ||
       codigoVar == ""
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+      Swal.fire({
+        title: 'Existem campos em branco!',
+        imageUrl: 'https://assets-v2.lottiefiles.com/a/43e82c14-1151-11ee-8231-0b044ae9362b/m0OMiysHr8.gif',
+        imageHeight: 100,
+        imageWidth: 100
+      });
 
-      finalizarAguardar();
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
@@ -138,9 +125,12 @@
         console.log("Código de ativação válido.");
         break;
       } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
+        Swal.fire({
+          title: 'Código de empresa inválido',
+          imageUrl: 'https://assets-v2.lottiefiles.com/a/43e82c14-1151-11ee-8231-0b044ae9362b/m0OMiysHr8.gif',
+          imageHeight: 100,
+          imageWidth: 100
+        });
       }
     }
 
@@ -163,24 +153,24 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          Swal.fire({
+            title: 'Cadastro realizado com sucesso',
+            imageUrl: 'https://cdn.dribbble.com/userupload/23452400/file/original-894d9de0225a207d34a588bfb659f2bf.gif',
+            imageHeight: 100,
+            imageWidth: 100
+          })
 
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
           limparFormulario();
-          finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
       });
 
     return false;
@@ -206,7 +196,4 @@
       });
   }
 
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
 </script>
