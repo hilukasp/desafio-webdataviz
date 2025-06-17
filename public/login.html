@@ -6,12 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AquaTech | Login</title>
+    <title>Humitrack | Login</title>
 
     <script src="./js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
+    <link rel="icon"
+        href="https://png.pngtree.com/png-clipart/20230504/original/pngtree-vector-in-tree-element-graphic-design-png-image_9140130.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
@@ -21,17 +23,14 @@
 
     <div class="header">
         <div class="container">
-            <h1 class="titulo">AquaTech</h1>
+            <h1 class="titulo">Humitrack</h1>
             <ul class="navbar">
                 <li>
                     <a href="index.html">Inicial</a>
                 </li>
-                <li>
-                    <a href="simulador.html">Simulador</a>
-                </li>
                 <li>|</li>
                 <li class="agora">
-                    <a href="#">Login</a>
+                    Login
                 </li>
                 <li>
                     <a href="cadastro.html">Cadastro</a>
@@ -42,11 +41,7 @@
 
 
     <div class="login">
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
+        <div class="bg"></div>
         <div class="container">
             <div class="card card-login">
                 <h2>Olá de volta!</h2>
@@ -61,12 +56,6 @@
                     </div>
                     <button class="botao" onclick="entrar()">Entrar</button>
                 </div>
-
-                <div id="div_aguardar" class="loading-div">
-                    <img src="./assets/circle-loading.gif" id="loading-gif">
-                </div>
-
-                <div id="div_erros_login"></div>
             </div>
         </div>
     </div>
@@ -86,21 +75,19 @@
 
 <script>
 
-
     function entrar() {
-        aguardar();
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+            Swal.fire({
+                title: 'Existem campos em branco!',
+                imageUrl: 'https://assets-v2.lottiefiles.com/a/43e82c14-1151-11ee-8231-0b044ae9362b/m0OMiysHr8.gif',
+                imageHeight: 100,
+                imageWidth: 100
+            });
             return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", emailVar);
@@ -120,6 +107,12 @@
 
             if (resposta.ok) {
                 console.log(resposta);
+                Swal.fire({
+                    title: 'Login realizado com sucesso',
+                    imageUrl: 'https://cdn.dribbble.com/userupload/23452400/file/original-894d9de0225a207d34a588bfb659f2bf.gif',
+                    imageHeight: 100,
+                    imageWidth: 100
+                })
 
                 resposta.json().then(json => {
                     console.log(json);
@@ -140,7 +133,6 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 
@@ -149,10 +141,6 @@
         })
 
         return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none"
     }
 
 </script>
