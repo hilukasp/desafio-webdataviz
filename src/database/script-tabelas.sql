@@ -6,7 +6,7 @@
 comandos para mysql server
 */
 
-CREATE DATABASE woodtech;
+CREATE DATABASE IF NOT EXISTS woodtech;
 
 USE woodtech;
 
@@ -42,7 +42,7 @@ CREATE TABLE sensor (
 CREATE TABLE registro (
 	id 					INT PRIMARY KEY AUTO_INCREMENT,
 	fk_sensor			INT,
-	medida				DECIMAL(3, 1),,
+	medida				DECIMAL(3, 1),
 	horario				DATETIME,
 	foreign key 		(fk_sensor) references sensor(id)
 ) auto_increment = 10000 ;
@@ -65,9 +65,9 @@ VALUES			 ('Acácia', 1),
 
 INSERT INTO sensor 	(fk_lote)
 VALUES			 	(100),
-				 	(100),
-				 	(200),
-				 	(200);
+				 	(101),
+				 	(102),
+				 	(103);
 
 INSERT INTO registro (fk_sensor, medida, horario)
 VALUES
