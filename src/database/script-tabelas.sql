@@ -118,3 +118,8 @@ VALUES
 (1002, 10.4, "2025-04-15 13:20:00"),
 (1002, 11.6, "2025-04-17 16:00:00"),
 (1002, 7.6, "2025-04-19 09:30:00");
+
+SELECT l.tipo, r.medida, r.horario
+FROM lote l
+JOIN sensor s on s.fk_lote = l.id
+JOIN registro r on r.fk_sensor = s.id;
